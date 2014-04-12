@@ -1,5 +1,9 @@
-@sqfrcon\sqfrcon.dll\Debug\
-@sqfrcon\sqfrcon.dll\ipch\
-@sqfrcon\sqfrcon.dll\Release\
-@sqfrcon\sqfrcon.dll\sqfrcon\Debug\
-@sqfrcon\sqfrcon.dll\sqfrcon\Release\
+@sqfrcon/sqfrcon.dll/Debug/
+@sqfrcon/sqfrcon.dll/ipch/
+@sqfrcon/sqfrcon.dll/Release/
+@sqfrcon/sqfrcon.dll/sqfrcon/Debug/
+@sqfrcon/sqfrcon.dll/sqfrcon/Release/
+@sqfrcon/sqfrcon.dll/sqfrcon.sdf
+@sqfrcon/sqfrcon.dll/sqfrcon.v12.suo
+@sqfrcon/sqfrcon.dll/sqfrcon/sqfrcon.vcxproj.filters
+@sqfrcon/sqfrcon.dll/sqfrcon/sqfrcon.vcxproj.user
