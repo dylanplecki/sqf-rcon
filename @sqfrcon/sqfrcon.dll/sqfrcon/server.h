@@ -1,11 +1,6 @@
 #pragma once
 
-#define SOCKET_TIMEOUT 250 // Milliseconds
-#define RESPONSIVE_TIMEOUT 1000 // Milliseconds
-
-#define MAX_USER_LEN 32 // Bytes
-#define MAX_PASS_LEN 32 // Bytes
-#define MAX_CONTENT_LEN (2^18) // Bytes
+#include "package.h"
 
 namespace sqfrcon
 {
@@ -15,6 +10,8 @@ namespace sqfrcon
 		std::mutex mutex;
 		std::condition_variable wd_wait;
 		std::thread* wd_thread;
+		std::string port;
+		std::string ssl_certificate_path;
 		bool running;
 		bool responsive;
 		struct mg_server *mongoose;
@@ -25,12 +22,15 @@ namespace sqfrcon
 		void watchdog();
 		void queue(sqfrcon::package* pkg);
 	public:
-		server(std::string port, std::string ssl_cert = "");
+		server();
 		~server();
 		std::string request(std::string& input, size_t size);
 		std::string store(std::string& input);
 		void addUser(std::string user, std::string password);
 		void responsiveCheck();
+		void start();
 		bool stop();
+		void setPort(std::string sPort) { this->port = sPort; };
+		void setSSLPath(std::string pSSL_certificate_path) { this->ssl_certificate_path = pSSL_certificate_path; };
 	};
 }

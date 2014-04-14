@@ -1,0 +1,365 @@
+/*%FSM<COMPILE "C:\Program Files (x86)\Bohemia Interactive\Tools\FSM Editor Personal Edition\scriptedFSM.cfg, server_handler">*/
+/*%FSM<HEAD>*/
+/*
+item0[] = {"Start",0,250,250.000000,-650.000000,350.000000,-600.000000,0.000000,"Start"};
+item1[] = {"Client",8,218,400.000000,-650.000000,500.000000,-600.000000,0.000000,"Client"};
+item2[] = {"End",1,250,400.000000,-550.000000,500.000000,-500.000000,0.000000,"End"};
+item3[] = {"Server",4,218,250.000000,-550.000000,350.000000,-500.000000,1.000000,"Server"};
+item4[] = {"Wait",4,218,400.000000,-200.000000,500.000000,-150.000000,0.000000,"Wait"};
+item5[] = {"Retrieve_Data_From",2,250,550.000000,-250.000000,650.000000,-200.000000,0.000000,"Retrieve Data" \n "From Extension"};
+item6[] = {"New_Data",4,218,775.000000,-250.000000,875.000000,-200.000000,2.000000,"New Data"};
+item7[] = {"Start_Timer",2,250,250.000000,-250.000000,350.000000,-200.000000,0.000000,"Start Timer"};
+item8[] = {"Preprocess_Resul",2,250,775.000000,-350.000000,875.000000,-300.000000,0.000000,"Preprocess" \n "Result"};
+item9[] = {"Complete_Result",8,218,700.000000,-450.000000,800.000000,-400.000000,0.000000,"Complete" \n "Result"};
+item10[] = {"Process_Result",2,250,550.000000,-500.000000,650.000000,-450.000000,0.000000,"Process" \n "Result"};
+item11[] = {"Truncated_Result",4,218,850.000000,-450.000000,950.000000,-400.000000,1.000000,"Truncated" \n "Result"};
+item12[] = {"Retrieve_Chunk",2,250,850.000000,-550.000000,950.000000,-500.000000,0.000000,"Retrieve" \n "Chunk"};
+item13[] = {"Extension_Presen",4,218,250.000000,-350.000000,350.000000,-300.000000,1.000000,"Extension" \n "Present"};
+item14[] = {"Data_Callback",8,218,550.000000,-375.000000,650.000000,-325.000000,0.000000,"Data" \n "Callback"};
+item15[] = {"Get_Extension_Ve",2,250,250.000000,-450.000000,350.000000,-400.000000,0.000000,"Get Extension" \n "Version"};
+item16[] = {"No_More_Data",8,218,400.000000,-300.000000,500.000000,-250.000000,0.000000,"No More" \n "Data"};
+item17[] = {"All_Chunks_Recie",4,218,700.000000,-550.000000,800.000000,-500.000000,1.000000,"All Chunks" \n "Recieved"};
+item18[] = {"Loop",8,218,850.000000,-625.000000,950.000000,-575.000000,0.000000,"Loop"};
+item19[] = {"No_Extension",8,218,400.000000,-450.000000,500.000000,-400.000000,0.000000,"No Extension"};
+item20[] = {"Error",4,218,550.000000,-150.000000,650.000000,-100.000000,1.000000,"Error"};
+item21[] = {"Process_Error",2,250,100.000000,-150.000000,200.000000,-100.000000,0.000000,"Process Error"};
+item22[] = {"Reload_Extension",8,218,100.000000,-650.000000,200.000000,-600.000000,0.000000,"Reload" \n "Extension"};
+link0[] = {0,1};
+link1[] = {0,3};
+link2[] = {1,2};
+link3[] = {3,15};
+link4[] = {4,5};
+link5[] = {5,6};
+link6[] = {5,16};
+link7[] = {5,20};
+link8[] = {6,8};
+link9[] = {7,4};
+link10[] = {8,9};
+link11[] = {8,11};
+link12[] = {9,10};
+link13[] = {10,14};
+link14[] = {11,12};
+link15[] = {12,17};
+link16[] = {12,18};
+link17[] = {13,7};
+link18[] = {14,5};
+link19[] = {15,13};
+link20[] = {15,19};
+link21[] = {16,7};
+link22[] = {17,10};
+link23[] = {18,12};
+link24[] = {19,2};
+link25[] = {20,21};
+link26[] = {21,22};
+link27[] = {22,0};
+globals[] = {25.000000,1,0,0,0,640,480,1,43,6316128,1,65.232109,1045.720947,99.353516,-813.895752,977,910,1};
+window[] = {2,-1,-1,-1,-1,785,26,1466,26,3,995};
+*//*%FSM</HEAD>*/
+class FSM
+{
+  fsmName = "server_handler";
+  class States
+  {
+    /*%FSM<STATE "Start">*/
+    class Start
+    {
+      name = "Start";
+      init = /*%FSM<STATEINIT""">*/"private [""_extName"", ""_waitTime""];" \n
+       "_extName = ""sqfrcon"";" \n
+       "_waitTime = 0;" \n
+       "" \n
+       "// Stop any currently running server" \n
+       "_extName callExtension ""4"";"/*%FSM</STATEINIT""">*/;
+      precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+      class Links
+      {
+        /*%FSM<LINK "Server">*/
+        class Server
+        {
+          priority = 1.000000;
+          to="Get_Extension_Ve";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"isServer"/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+        /*%FSM<LINK "Client">*/
+        class Client
+        {
+          priority = 0.000000;
+          to="End";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/""/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+      };
+    };
+    /*%FSM</STATE>*/
+    /*%FSM<STATE "End">*/
+    class End
+    {
+      name = "End";
+      init = /*%FSM<STATEINIT""">*/""/*%FSM</STATEINIT""">*/;
+      precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+      class Links
+      {
+      };
+    };
+    /*%FSM</STATE>*/
+    /*%FSM<STATE "Retrieve_Data_From">*/
+    class Retrieve_Data_From
+    {
+      name = "Retrieve_Data_From";
+      init = /*%FSM<STATEINIT""">*/"private [""_data""];" \n
+       "_data = _extName callExtension ""0"";" \n
+       "" \n
+       "private [""_dataArr"", ""_io""];" \n
+       "_dataArr = toArray(_data);" \n
+       "_io = if ((count _dataArr) > 0) then {" \n
+       "	parseNumber(toString([_dataArr select 0]))" \n
+       "} else {0};"/*%FSM</STATEINIT""">*/;
+      precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+      class Links
+      {
+        /*%FSM<LINK "New_Data">*/
+        class New_Data
+        {
+          priority = 2.000000;
+          to="Preprocess_Resul";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"_io == 1"/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+        /*%FSM<LINK "Error">*/
+        class Error
+        {
+          priority = 1.000000;
+          to="Process_Error";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"_io == 3"/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+        /*%FSM<LINK "No_More_Data">*/
+        class No_More_Data
+        {
+          priority = 0.000000;
+          to="Start_Timer";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/""/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+      };
+    };
+    /*%FSM</STATE>*/
+    /*%FSM<STATE "Start_Timer">*/
+    class Start_Timer
+    {
+      name = "Start_Timer";
+      init = /*%FSM<STATEINIT""">*/"private [""_waitStartTime""];" \n
+       "_waitStartTime = diag_tickTime;"/*%FSM</STATEINIT""">*/;
+      precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+      class Links
+      {
+        /*%FSM<LINK "Wait">*/
+        class Wait
+        {
+          priority = 0.000000;
+          to="Retrieve_Data_From";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"diag_tickTime > (_waitStartTime + _waitTime)"/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+      };
+    };
+    /*%FSM</STATE>*/
+    /*%FSM<STATE "Preprocess_Resul">*/
+    class Preprocess_Resul
+    {
+      name = "Preprocess_Resul";
+      init = /*%FSM<STATEINIT""">*/"/*" \n
+       "	Unicode Characters:" \n
+       "		""0"" = 48" \n
+       "		""1"" = 49" \n
+       "		""@"" = 64" \n
+       "*/" \n
+       "" \n
+       "private [""_trunc"", ""_index"", ""_id"", ""_content""];" \n
+       "_trunc = (_dataArr select 1) == 49;" \n
+       "_index = (_dataArr find 64) max 3;" \n
+       "_id = [];" \n
+       "" \n
+       "for ""_i"" from 2 to (_index - 1) do {" \n
+       "	_id set [(count _id), (_dataArr select _i)];" \n
+       "};" \n
+       "" \n
+       "_id = toString(_id);" \n
+       "" \n
+       "for ""_i"" from 0 to (_index) do {" \n
+       "	_dataArr set [_i, objNull];" \n
+       "};" \n
+       "" \n
+       "_content = toString(_dataArr - [objNull]);"/*%FSM</STATEINIT""">*/;
+      precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+      class Links
+      {
+        /*%FSM<LINK "Truncated_Result">*/
+        class Truncated_Result
+        {
+          priority = 1.000000;
+          to="Retrieve_Chunk";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"_trunc"/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+        /*%FSM<LINK "Complete_Result">*/
+        class Complete_Result
+        {
+          priority = 0.000000;
+          to="Process_Result";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/""/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+      };
+    };
+    /*%FSM</STATE>*/
+    /*%FSM<STATE "Process_Result">*/
+    class Process_Result
+    {
+      name = "Process_Result";
+      init = /*%FSM<STATEINIT""">*/"private [""_result""];" \n
+       "_result = call compile _content;"/*%FSM</STATEINIT""">*/;
+      precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+      class Links
+      {
+        /*%FSM<LINK "Data_Callback">*/
+        class Data_Callback
+        {
+          priority = 0.000000;
+          to="Retrieve_Data_From";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/""/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/"_extName callExtension (""1"" + _id + ""@"" + (if (isNil ""_result"") then {""nil""} else {str(_result)}));"/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+      };
+    };
+    /*%FSM</STATE>*/
+    /*%FSM<STATE "Retrieve_Chunk">*/
+    class Retrieve_Chunk
+    {
+      name = "Retrieve_Chunk";
+      init = /*%FSM<STATEINIT""">*/"/*" \n
+       "	Unicode Characters:" \n
+       "		""0"" = 48" \n
+       "		""1"" = 49" \n
+       "*/" \n
+       "" \n
+       "private [""_chunk""];" \n
+       "_chunk = _extName callExtension (""0"" + _id);" \n
+       "" \n
+       "_io = (_chunk select 0) == 49;" \n
+       "_trunc = (_chunk select 1) == 49;" \n
+       "" \n
+       "_chunk set [0, objNull];" \n
+       "_chunk set [1, objNull];" \n
+       "" \n
+       "_content = _content + toString(_chunk - [objNull]);"/*%FSM</STATEINIT""">*/;
+      precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+      class Links
+      {
+        /*%FSM<LINK "All_Chunks_Recie">*/
+        class All_Chunks_Recie
+        {
+          priority = 1.000000;
+          to="Process_Result";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"!_trunc"/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+        /*%FSM<LINK "Loop">*/
+        class Loop
+        {
+          priority = 0.000000;
+          to="Retrieve_Chunk";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/""/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+      };
+    };
+    /*%FSM</STATE>*/
+    /*%FSM<STATE "Get_Extension_Ve">*/
+    class Get_Extension_Ve
+    {
+      name = "Get_Extension_Ve";
+      init = /*%FSM<STATEINIT""">*/"private [""_version""];" \n
+       "_version = _extName callExtension ""2"";"/*%FSM</STATEINIT""">*/;
+      precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+      class Links
+      {
+        /*%FSM<LINK "Extension_Presen">*/
+        class Extension_Presen
+        {
+          priority = 1.000000;
+          to="Start_Timer";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"_version != """""/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/"_extName callExtension ""3""; // Start server"/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+        /*%FSM<LINK "No_Extension">*/
+        class No_Extension
+        {
+          priority = 0.000000;
+          to="End";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/""/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+      };
+    };
+    /*%FSM</STATE>*/
+    /*%FSM<STATE "Process_Error">*/
+    class Process_Error
+    {
+      name = "Process_Error";
+      init = /*%FSM<STATEINIT""">*/"private [""_error""];" \n
+       "_dataArr set [0, objNull];" \n
+       "_error = toString(_dataArr - [objNull]);" \n
+       "" \n
+       "diag_log text format[""%1: (SQF RCON) [ERROR] %2"", diag_tickTime, _error];"/*%FSM</STATEINIT""">*/;
+      precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+      class Links
+      {
+        /*%FSM<LINK "Reload_Extension">*/
+        class Reload_Extension
+        {
+          priority = 0.000000;
+          to="Start";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/""/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+      };
+    };
+    /*%FSM</STATE>*/
+  };
+  initState="Start";
+  finalStates[] =
+  {
+    "End",
+  };
+};
+/*%FSM</COMPILE>*/

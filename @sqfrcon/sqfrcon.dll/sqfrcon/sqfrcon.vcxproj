@@ -41,13 +41,13 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>D:\lib\c\boost_1_55_0;D:\lib\c\cryptopp562;$(IncludePath)</IncludePath>
-    <LibraryPath>D:\lib\c\x\staticlib;$(LibraryPath)</LibraryPath>
+    <IncludePath>D:\lib\c\jsoncpp-src-0.5.0\include;D:\lib\c\x\include;D:\lib\c\boost_1_55_0;D:\lib\c\cryptopp562;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\lib\c\jsoncpp-src-0.5.0\build\vs71;D:\lib\c\x\staticlib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>D:\lib\c\boost_1_55_0;D:\lib\c\cryptopp562;$(IncludePath)</IncludePath>
-    <LibraryPath>D:\lib\c\boost_1_55_0\bin.v2\libs;D:\lib\c\x\staticlib;$(LibraryPath)</LibraryPath>
+    <IncludePath>D:\lib\c\jsoncpp-src-0.5.0\include;D:\lib\c\x\include;D:\lib\c\boost_1_55_0;D:\lib\c\cryptopp562;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\lib\c\jsoncpp-src-0.5.0\build\vs71;D:\lib\c\boost_1_55_0\bin.v2\libs;D:\lib\c\x\staticlib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -68,22 +68,28 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;SQFRCON_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;SQFRCON_EXPORTS;LIBCONFIG_STATIC;LIBCONFIGXX_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalOptions>-lconfig++ %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalDependencies>libconfig.lib;libconfig++.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\%40sqfrcon\sqfrcon.dll\sqfrcon\system.h" />
+    <ClInclude Include="version.h" />
+    <ClInclude Include="..\..\..\%40sqfrcon\sqfrcon.dll\sqfrcon\resource.h" />
     <ClInclude Include="mongoose.h" />
     <ClInclude Include="package.h" />
     <ClInclude Include="server.h" />
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\%40sqfrcon\sqfrcon.dll\sqfrcon\system.cpp" />
     <ClCompile Include="dllmain.cpp">
       <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</CompileAsManaged>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -102,6 +108,9 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="version.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

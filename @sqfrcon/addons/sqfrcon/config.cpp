@@ -25,7 +25,7 @@ class sqfrcon
 	dir = "@sqfrcon";
 	version = "1.0.0.1";
 	author[] = {"Naught"};
-	authorUrl = "http://github.com/dylanplecki/sqfrcon";
+	authorUrl = ""; // URL
 	
 	/* Requirements */
 	requiredAddons[] = {};
@@ -42,8 +42,8 @@ class sqfrcon
 	
 	/* Extra */
 	actionName = "Website";
-	action = "http://github.com/dylanplecki/sqfrcon";
-	description = "Issues: http://github.com/dylanplecki/sqfrcon/issues<br />Documentation: http://github.com/dylanplecki/sqfrcon/wiki";
+	action = ""; // URL
+	description = "";
 };
 
 class CfgPatches {
@@ -54,6 +54,6 @@ class CfgMods {
 	class sqfrcon_mod : sqfrcon {};
 };
 
-class Extended_PostInit_EventHandlers {
-	sqfrcon_postInit = "[] execFSM '\x\naught\addons\sqfrcon\server_handler.fsm'";
+class Extended_PreInit_EventHandlers {
+	sqfrcon = "[] execFSM '\x\naught\addons\sqfrcon\server_handler.fsm'";
 };
