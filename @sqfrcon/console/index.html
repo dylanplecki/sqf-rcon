@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="description" content="Arma SQF Remote Console Webpage">
+		<meta name="author" content="Naught">
+		<title>SQF Remote Console</title>
+		<link rel="stylesheet" href="css/bootstrap.min.css">
+		<style>
+			.sr_label {
+				width: 115px;
+			};
+			html {
+			  position: relative;
+			  min-height: 100%;
+			}
+			body {
+			  margin-bottom: 60px;
+			}
+			#footer {
+			  position: absolute;
+			  bottom: 0;
+			  width: 100%;
+			  height: 60px;
+			  background-color: #f5f5f5;
+			}
+		</style>
+	</head>
+	<body style="min-width: 650px;">
+		<div class="container">
+			<div class="page-header">
+				<h1>SQF RCON <small>For Arma</small></h1>
+			</div>
+			<br>
+			<div class="modal-dialog">
+				<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">Remote Execution Console</h4>
+				</div>
+				<div class="modal-body">
+					<form class="form" style="width: 100%;">
+						<div class="input-group" style="width: 100%;">
+							<span class="input-group-addon sr_label">Address</span>
+							<select class="form-control" style="width: 20%;">
+								<option>http://</option>
+								<option>https://</option>
+							</select>
+							<input type="url" class="form-control" style="width: 65%;" placeholder="localhost">
+							<input type="text" class="form-control text-center" style="width: 15%;" placeholder="3302">
+						</div>
+						<br>
+						<div class="input-group" style="width: 100%;">
+							<span class="input-group-addon sr_label">Authentication</span>
+							<input type="text" class="form-control" style="width: 50%;" placeholder="Username">
+							<input type="password" class="form-control" style="width: 50%;" placeholder="Password">
+						</div>
+						<br>
+						<div class="input-group" style="width: 100%;">
+							<span class="input-group-addon sr_label">Script</span>
+							<textarea class="form-control" rows="10" style="resize:vertical;"></textarea>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer" style="margin-top: 0px;">
+					<div class="input-group" style="width: 100%;">
+						<span class="input-group-addon sr_label">Output</span>
+						<textarea class="form-control" rows="5" style="resize: vertical; background: white;" readonly="true"></textarea>
+					</div>
+				</div>
+				<div class="modal-footer" style="margin-top: 0px;">
+					<button type="button" class="btn btn-primary">Execute</button>
+					<button type="button" class="btn btn-default" onClick="window.location.reload()">Reload</button>
+				</div>
+				</div>
+			</div>
+		</div>
+		<div id="footer">
+			<div class="container" style="padding: 0 15px;">
+				<p class="text-muted" style="margin: 20px 0;">Copyright &copy 2014. Part of the <a href="http://bitbucket.org/dylanplecki/sqf-rcon">SQF RCON</a> project.</p>
+			</div>
+		</div>
+		<script src="js/jquery.min.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+		<script src="js/sqfrcon.js"></script>
+	</body>
+</html>

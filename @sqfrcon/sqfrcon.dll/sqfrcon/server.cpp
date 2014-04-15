@@ -11,6 +11,15 @@ namespace sqfrcon
 			return MG_TRUE;
 		else if (ev == MG_REQUEST)
 		{
+			// Set MIME type
+			mg_send_header(conn, "Content-Type", "text/plain");
+			// Allow cross-domain and cross-port javascript access
+			mg_send_header(conn, "Access-Control-Allow-Origin", "*");
+			mg_send_header(conn, "Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+			const char* ac_requestHeaders = mg_get_header(conn, "Access-Control-Request-Headers");
+			if (ac_requestHeaders != NULL)
+				mg_send_header(conn, "Access-Control-Allow-Headers", ac_requestHeaders);
+			// Check request
 			if (server->responsive)
 			{
 				char user[MAX_USER_LEN];
