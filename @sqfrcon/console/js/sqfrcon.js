@@ -1,7 +1,5 @@
 
-$(".spinner").bind("keydown", function (event) {
-    event.preventDefault();
-});
+/* JS Page Init */
 
 $("#success_close").click(function(){
 	$("#success_alert").hide(400);
@@ -10,6 +8,12 @@ $("#success_close").click(function(){
 $("#error_close").click(function(){
 	$("#error_alert").hide(400);
 });
+
+$(document).ready(function(){
+    $('#code').autosize();   
+});
+
+/* JS Functions */
 
 function successMsg(title, message) {
 	$("#success_alert").hide(0);
@@ -84,7 +88,7 @@ function remoteExecute(url, data, username, password) {
 					break;
 				case "Forbidden":
 					title = "HTTP 403: Forbidden";
-					message = "Access denied for the given username and password.";
+					message = "Access denied for the given username and/or password.";
 					break;
 				case "Server Error":
 					title = "HTTP 503: Service Unavailable";
