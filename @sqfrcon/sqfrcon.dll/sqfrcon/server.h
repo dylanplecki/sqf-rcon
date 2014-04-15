@@ -18,6 +18,7 @@ namespace sqfrcon
 		concurrency::concurrent_queue<sqfrcon::package*> output_queue;
 		concurrency::concurrent_unordered_map<size_t,sqfrcon::package*> input_storage;
 		concurrency::concurrent_unordered_map<std::string, std::string> user_database;
+		void server::sendHeaders(struct mg_connection *conn);
 		static int event_handler(struct mg_connection *conn, enum mg_event ev);
 		void watchdog();
 		void queue(sqfrcon::package* pkg);

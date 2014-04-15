@@ -4,6 +4,18 @@
 
 namespace sqfrcon
 {
+	void server::sendHeaders(struct mg_connection *conn)
+	{
+		// Set MIME type
+		mg_send_header(conn, "Content-Type", "text/plain");
+		// Allow cross-domain and cross-port javascript access
+		mg_send_header(conn, "Access-Control-Allow-Origin", "*");
+		mg_send_header(conn, "Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+		const char* ac_requestHeaders = mg_get_header(conn, "Access-Control-Request-Headers");
+		if (ac_requestHeaders != NULL)
+			mg_send_header(conn, "Access-Control-Allow-Headers", ac_requestHeaders);
+	}
+
 	int server::event_handler(struct mg_connection *conn, enum mg_event ev)
 	{
 		sqfrcon::server* server = static_cast<sqfrcon::server*>(conn->server_param);
@@ -11,14 +23,6 @@ namespace sqfrcon
 			return MG_TRUE;
 		else if (ev == MG_REQUEST)
 		{
-			// Set MIME type
-			mg_send_header(conn, "Content-Type", "text/plain");
-			// Allow cross-domain and cross-port javascript access
-			mg_send_header(conn, "Access-Control-Allow-Origin", "*");
-			mg_send_header(conn, "Access-Control-Allow-Methods", "GET, POST, OPTIONS");
-			const char* ac_requestHeaders = mg_get_header(conn, "Access-Control-Request-Headers");
-			if (ac_requestHeaders != NULL)
-				mg_send_header(conn, "Access-Control-Allow-Headers", ac_requestHeaders);
 			// Check request
 			if (server->responsive)
 			{
@@ -32,35 +36,46 @@ namespace sqfrcon
 						new CryptoPP::HashFilter(hash,
 						new CryptoPP::Base64Encoder(
 						new CryptoPP::StringSink(digest), false)));
-					if (server->user_database.at(user) == digest)
+					try
 					{
-						char content[MAX_CONTENT_LEN];
-						if (mg_get_var(conn, "script", content, MAX_CONTENT_LEN) > 0)
+						if (server->user_database.at(user) == digest)
 						{
-							sqfrcon::package* pkg = new package();
-							pkg->fill(content);
-							conn->connection_param = pkg;
-							server->queue(pkg);
-							BOOST_LOG_TRIVIAL(info) << "HTTP 200 OK: SQF data request queued for execution.";
-							BOOST_LOG_TRIVIAL(debug) << "Request Data: " + std::string(content) + ".";
-							return MG_MORE;
+							char content[MAX_CONTENT_LEN];
+							if (mg_get_var(conn, "script", content, MAX_CONTENT_LEN) > 0)
+							{
+								sqfrcon::package* pkg = new package();
+								pkg->fill(content);
+								conn->connection_param = pkg;
+								server->queue(pkg);
+								BOOST_LOG_TRIVIAL(info) << "HTTP 200 OK: SQF data request queued for execution.";
+								BOOST_LOG_TRIVIAL(debug) << "Request Data: " + std::string(content) + ".";
+								return MG_MORE;
+							}
+							mg_send_status(conn, 400); // 400 Bad Request
+							server->sendHeaders(conn);
+							mg_printf_data(conn, "No Script Data Was Recieved.");
+							BOOST_LOG_TRIVIAL(info) << "HTTP 400 Bad Request: No script data was sent.";
+							return MG_TRUE;
 						}
-						mg_send_status(conn, 400); // 400 Bad Request
-						mg_printf_data(conn, "No Script Data Was Recieved.");
-						BOOST_LOG_TRIVIAL(info) << "HTTP 400 Bad Request: No script data was sent.";
-						return MG_TRUE;
+					}
+					catch (std::out_of_range)
+					{
+						BOOST_LOG_TRIVIAL(debug) << "User '" + std::string(user) + "'not found.";
 					}
 					mg_send_status(conn, 403); // 403 Forbidden
+					server->sendHeaders(conn);
 					mg_printf_data(conn, "Access Denied for '%s'@'%s'.", user, digest);
 					BOOST_LOG_TRIVIAL(info) << "HTTP 403 Forbidden: Access denied for user '" + std::string(user) + "'@'" + digest + "'.";
 					return MG_TRUE;
 				}
-				mg_send_status(conn, 403); // 400 Bad Request
+				mg_send_status(conn, 400); // 400 Bad Request
+				server->sendHeaders(conn);
 				mg_printf_data(conn, "Username or Password Not Given.");
 				BOOST_LOG_TRIVIAL(info) << "HTTP 400 Bad Request: Username or password not given.";
 				return MG_TRUE;
 			}
 			mg_send_status(conn, 503); // 503 Service Unavailable
+			server->sendHeaders(conn);
 			mg_printf_data(conn, "SQF Service Temporarily Unresponsive.");
 			BOOST_LOG_TRIVIAL(info) << "HTTP 503 Service Unavailable: SQF service is temporarily unresponsive.";
 			return MG_TRUE;
@@ -74,6 +89,8 @@ namespace sqfrcon
 				if (pkg->check())
 				{
 					// Send back data
+					mg_send_status(conn, 200); // 200 OK
+					server->sendHeaders(conn);
 					mg_printf_data(conn, pkg->content().c_str());
 					server->input_storage.unsafe_erase(pkg->id());
 					BOOST_LOG_TRIVIAL(info) << "HTTP Connection Closed: Response formed and sent.";
