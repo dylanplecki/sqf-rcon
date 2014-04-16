@@ -304,7 +304,11 @@ class FSM
     {
       name = "Get_Extension_Ve";
       init = /*%FSM<STATEINIT""">*/"private [""_version""];" \n
-       "_version = _extName callExtension ""2"";"/*%FSM</STATEINIT""">*/;
+       "_version = _extName callExtension ""2"";" \n
+       "" \n
+       "if (_version != getText(configFile >> ""sqfrcon"" >> ""version"")) then {" \n
+       "	diag_log text format[""<WARNING> SQF RCON VERSION MISMATCH: '%1' (DLL) NOT EQUAL TO '%2' (ADDON)."", _version, getText(configFile >> ""sqfrcon"" >> ""version"")];" \n
+       "};"/*%FSM</STATEINIT""">*/;
       precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
       class Links
       {
