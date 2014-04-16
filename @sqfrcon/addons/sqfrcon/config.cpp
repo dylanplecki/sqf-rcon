@@ -4,7 +4,7 @@ class sqfrcon
 	/* General Information */
 	name = "SQF RCON";
 	dir = "@sqfrcon";
-	version = "1.0.1.4";
+	version = "1.0.1.3";
 	author[] = {"Naught"};
 	authorUrl = "http://bitbucket.org/dylanplecki/sqf-rcon"; // URL
 	
@@ -35,17 +35,6 @@ class CfgMods {
 	class sqfrcon_mod : sqfrcon {};
 };
 
-class CfgFunctions
-{
-	class sqfrcon
-	{
-		class core
-		{
-			class server_handler
-			{
-				preInit = 1;
-				file = "\x\naught\addons\sqfrcon\server_handler.fsm";
-			};
-		};
-	};
+class Extended_PreInit_EventHandlers {
+	sqfrcon = "[] execFSM '\x\naught\addons\sqfrcon\server_handler.fsm'";
 };
