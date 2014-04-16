@@ -15,8 +15,8 @@ item10[] = {"Process_Result",2,250,550.000000,-500.000000,650.000000,-450.000000
 item11[] = {"Truncated_Result",4,218,850.000000,-450.000000,950.000000,-400.000000,1.000000,"Truncated" \n "Result"};
 item12[] = {"Retrieve_Chunk",2,250,850.000000,-550.000000,950.000000,-500.000000,0.000000,"Retrieve" \n "Chunk"};
 item13[] = {"Extension_Presen",4,218,250.000000,-350.000000,350.000000,-300.000000,1.000000,"Extension" \n "Present"};
-item14[] = {"Data_Callback",8,4314,550.000000,-375.000000,650.000000,-325.000000,0.000000,"Data" \n "Callback"};
-item15[] = {"Get_Extension_Ve",2,250,250.000000,-450.000000,350.000000,-400.000000,0.000000,"Get Extension" \n "Version"};
+item14[] = {"Data_Callback",8,218,550.000000,-375.000000,650.000000,-325.000000,0.000000,"Data" \n "Callback"};
+item15[] = {"Get_Extension_Ve",2,4346,250.000000,-450.000000,350.000000,-400.000000,0.000000,"Get Extension" \n "Version"};
 item16[] = {"No_More_Data",8,218,400.000000,-300.000000,500.000000,-250.000000,0.000000,"No More" \n "Data"};
 item17[] = {"All_Chunks_Recie",4,218,700.000000,-550.000000,800.000000,-500.000000,1.000000,"All Chunks" \n "Recieved"};
 item18[] = {"Loop",8,218,850.000000,-625.000000,950.000000,-575.000000,0.000000,"Loop"};
@@ -53,7 +53,7 @@ link25[] = {20,21};
 link26[] = {21,22};
 link27[] = {22,0};
 globals[] = {25.000000,1,0,0,0,640,480,1,43,6316128,1,65.232109,1045.720947,99.353516,-813.895752,977,910,1};
-window[] = {2,-1,-1,-1,-1,811,52,1492,52,3,995};
+window[] = {2,-1,-1,-1,-1,967,208,1648,208,3,995};
 *//*%FSM</HEAD>*/
 class FSM
 {
@@ -304,7 +304,11 @@ class FSM
     {
       name = "Get_Extension_Ve";
       init = /*%FSM<STATEINIT""">*/"private [""_version""];" \n
-       "_version = _extName callExtension ""2"";"/*%FSM</STATEINIT""">*/;
+       "_version = _extName callExtension ""2"";" \n
+       "" \n
+       "if (_version != getText(configFile >> ""sqfrcon"" >> ""version"")) then {" \n
+       "	diag_log text format[""<WARNING> SQF RCON VERSION MISMATCH: '%1' (DLL) NOT EQUAL TO '%2' (ADDON)."", _version, getText(configFile >> ""sqfrcon"" >> ""version"")];" \n
+       "};"/*%FSM</STATEINIT""">*/;
       precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
       class Links
       {
