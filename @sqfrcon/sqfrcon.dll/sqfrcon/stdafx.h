@@ -9,7 +9,7 @@
 #define CONFIG_FILE "sqfrcon.cfg"
 
 #define SOCKET_TIMEOUT 250 // Milliseconds
-#define RESPONSIVE_TIMEOUT 1000 // Milliseconds
+#define RESPONSIVE_TIMEOUT 10000 // Milliseconds
 
 #define MAX_USER_LEN 64 // Bytes
 #define MAX_PASS_LEN 64 // Bytes
