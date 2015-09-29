@@ -24,7 +24,7 @@ class sqfrcon
 	
 	/* Extra */
 	actionName = "Website";
-	action = "http://bitbucket.org/dylanplecki/sqf-rcon"; // URL
+	action = "https://github.com/dylanplecki/sqf-rcon"; // URL
 	description = "";
 };
 
