@@ -7,7 +7,7 @@ class sqfrcon
 	dir = "@sqfrcon";
 	version = "1.0.1.4";
 	author[] = {"Naught"};
-	authorUrl = "http://bitbucket.org/dylanplecki/sqf-rcon"; // URL
+	authorUrl = "https://github.com/dylanplecki/sqf-rcon"; // URL
 	
 	/* Requirements */
 	requiredAddons[] = {};
